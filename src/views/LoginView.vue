@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { onMounted, ref } from "vue";
 import { useForm } from "vee-validate"
 import { object, string } from "yup";
 import { useRouter } from "vue-router";
@@ -7,13 +8,18 @@ import { useAuthUserStore } from "@/stores/authUser";
 import EmailArea from "@/components/molecules/EmailArea.vue";
 import PasswordArea from "@/components/molecules/PasswordArea.vue";
 import SubmitButton from "@/components/atoms/SubmitButton.vue";
-import { ref } from "vue";
 
 const error = ref<string>();
 
 const authUser = useAuthUserStore();
 
 const router = useRouter();
+
+onMounted(() => {
+  if (authUser.info) {
+    router.replace("/");
+  }
+});
 
 const schema = object({
   email: string().required("必須の項目です。").email("メールアドレスの形式ではありません。"),

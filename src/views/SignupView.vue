@@ -1,13 +1,23 @@
 <script setup lang="ts">
+import { onMounted } from "vue";
 import { useForm } from "vee-validate"
 import { object, string, ref } from "yup";
 import { useRouter } from "vue-router";
 import { axios } from "@/lib/axios";
+import { useAuthUserStore } from "@/stores/authUser";
 import NameArea from "@/components/molecules/NameArea.vue";
 import EmailArea from "@/components/molecules/EmailArea.vue";
 import PasswordArea from "@/components/molecules/PasswordArea.vue";
 import PasswordConfirmArea from "@/components/molecules/PasswordConfirmArea.vue";
 import SubmitButton from "@/components/atoms/SubmitButton.vue";
+
+const authUser = useAuthUserStore();
+
+onMounted(() => {
+  if (authUser.info) {
+    router.replace("/");
+  }
+});
 
 const router = useRouter();
 
