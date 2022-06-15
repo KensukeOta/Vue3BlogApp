@@ -5,8 +5,12 @@ import { useAuthUserStore } from "@/stores/authUser";
 import TitleArea from "../components/molecules/TitleArea.vue";
 import PostArea from "../components/molecules/PostArea.vue";
 import SubmitButton from "../components/atoms/SubmitButton.vue";
+import { axios } from "@/lib/axios";
+import { useRouter } from "vue-router";
 
 const authUser: any = useAuthUserStore();
+
+const router = useRouter();
 
 const { value: user_id } = useField("user_id");
 
@@ -27,7 +31,8 @@ const { errors, handleSubmit, isSubmitting } = useForm({
 
 const onSubmit = handleSubmit(async (values) => {
   try {
-    console.log(values)
+    await axios.post(`${import.meta.env.VITE_API_URL}/api/posts/create`, { title: values.title, body: values.body, user_id: values.user_id });
+    router.replace("/");
   } catch (error) {
     console.log(error);
   }
