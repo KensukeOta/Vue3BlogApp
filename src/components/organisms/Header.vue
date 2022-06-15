@@ -1,5 +1,9 @@
 <script setup lang="ts">
+import { useAuthUserStore } from '@/stores/authUser';
 import { RouterLink } from 'vue-router';
+import LogoutButton from '../atoms/LogoutButton.vue';
+
+const authUser = useAuthUserStore();
 </script>
 
 <template>
@@ -9,8 +13,13 @@ import { RouterLink } from 'vue-router';
     </RouterLink>
 
     <nav>
-      <RouterLink to="/signup">新規登録</RouterLink>
-      <RouterLink to="/login">ログイン</RouterLink>
+      <div v-if="!authUser.info">
+        <RouterLink to="/signup">新規登録</RouterLink>
+        <RouterLink to="/login">ログイン</RouterLink>
+      </div>
+      <div v-else>
+        <LogoutButton />
+      </div>
     </nav>
   </header>
 </template>

@@ -44,13 +44,13 @@ const onSubmit = handleSubmit(async (values) => {
   <form @submit="onSubmit">
     <dl>
       <NameArea />
-      <p>{{ errors.name }}</p>
+      <p class="text-red-500">{{ errors.name }}</p>
       <EmailArea />
-      <p>{{ errors.email }}</p>
+      <p class="text-red-500">{{ errors.email }}</p>
       <PasswordArea />
-      <p>{{ errors.password }}</p>
+      <p class="text-red-500">{{ errors.password }}</p>
       <PasswordConfirmArea />
-      <p>{{ errors.password_confirmation }}</p>
+      <p class="text-red-500">{{ errors.password_confirmation }}</p>
       <SubmitButton :disabled="isSubmitting">登録</SubmitButton>
     </dl>
   </form>

@@ -6,6 +6,9 @@ export const useAuthUserStore = defineStore({
     info: "",
   }),
   persist: {
-    enabled: true
+    enabled: true,
+    strategies: [
+      { storage: localStorage }
+    ]
   }
 });
