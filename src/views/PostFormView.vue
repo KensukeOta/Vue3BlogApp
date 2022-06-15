@@ -1,16 +1,23 @@
 <script setup lang="ts">
 import { useField, useForm } from "vee-validate";
 import { object, string } from "yup";
+import { useRouter } from "vue-router";
+import { axios } from "@/lib/axios";
 import { useAuthUserStore } from "@/stores/authUser";
 import TitleArea from "../components/molecules/TitleArea.vue";
 import PostArea from "../components/molecules/PostArea.vue";
 import SubmitButton from "../components/atoms/SubmitButton.vue";
-import { axios } from "@/lib/axios";
-import { useRouter } from "vue-router";
+import { onMounted } from "vue";
 
 const authUser: any = useAuthUserStore();
 
 const router = useRouter();
+
+onMounted(() => {
+  if (!authUser.info) {
+    router.replace("/login");
+  }
+});
 
 const { value: user_id } = useField("user_id");
 
