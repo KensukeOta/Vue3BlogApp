@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useAuthUserStore } from '@/stores/authUser';
 
-const authUser = useAuthUserStore();
+const authUser: any = useAuthUserStore();
 </script>
 
 <template>
