@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Post } from "@/types/Post";
+import { RouterLink } from "vue-router";
 
 defineProps<{
   post: Post;
@@ -8,7 +9,9 @@ defineProps<{
 
 <template>
   <li class="border">
-    <h1 class="font-bold">{{ post.title }}</h1>
+    <RouterLink :to="`/posts/${post.id}`">
+      <h1 class="font-bold">{{ post.title }}</h1>
+    </RouterLink>
     <nav>
       <p>by {{ post.user.name }}</p>
     </nav>
