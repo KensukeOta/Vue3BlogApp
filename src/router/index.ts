@@ -4,6 +4,7 @@ import SignupView from "@/views/SignupView.vue";
 import LoginView from "@/views/LoginView.vue";
 import PostFormView from "@/views/PostFormView.vue";
 import PostContentView from "@/views/PostContentView.vue";
+import PostEditFormView from "@/views/PostEditFormView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,11 @@ const router = createRouter({
       path: "/posts/:id",
       name: "post_content",
       component: PostContentView,
+    },
+    {
+      path: "/posts/:id/edit",
+      name: "post_edit",
+      component: PostEditFormView,
     },
   ],
 });

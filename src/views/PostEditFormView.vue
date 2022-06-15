@@ -38,8 +38,7 @@ const { errors, handleSubmit, isSubmitting } = useForm({
 
 const onSubmit = handleSubmit(async (values) => {
   try {
-    await axios.post(`${import.meta.env.VITE_API_URL}/api/posts/create`, { title: values.title, body: values.body, user_id: values.user_id });
-    router.replace("/");
+    console.log(values);
   } catch (error) {
     console.log(error);
   }
@@ -47,7 +46,7 @@ const onSubmit = handleSubmit(async (values) => {
 </script>
 
 <template>
-  <h1 class="font-bold">記事投稿フォーム</h1>
+  <h1 class="font-bold">記事更新フォーム</h1>
 
   <form @submit="onSubmit">
     <dl>
@@ -56,7 +55,7 @@ const onSubmit = handleSubmit(async (values) => {
       <p class="text-red-500">{{ errors.title }}</p>
       <PostArea />
       <p class="text-red-500">{{ errors.body }}</p>
-      <SubmitButton :disabled="isSubmitting">投稿する</SubmitButton>
+      <SubmitButton :disabled="isSubmitting">更新する</SubmitButton>
     </dl>
   </form>
 </template>
