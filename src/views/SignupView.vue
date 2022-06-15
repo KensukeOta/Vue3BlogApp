@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import { useForm } from "vee-validate"
 import { object, string, ref } from "yup";
+import { useRouter } from "vue-router";
+import { axios } from "@/lib/axios";
 import NameArea from "@/components/molecules/NameArea.vue";
 import EmailArea from "@/components/molecules/EmailArea.vue";
 import PasswordArea from "@/components/molecules/PasswordArea.vue";
 import PasswordConfirmArea from "@/components/molecules/PasswordConfirmArea.vue";
 import SubmitButton from "@/components/atoms/SubmitButton.vue";
+
+const router = useRouter();
 
 const schema = object({
   name: string().required("必須の項目です。"),
@@ -25,7 +29,12 @@ const { errors, handleSubmit, isSubmitting } = useForm({
 });
 
 const onSubmit = handleSubmit(async (values) => {
-  console.log(values);
+  try {
+    await axios.post(`${import.meta.env.VITE_API_URL}/api/users/create`, { name: values.name, email: values.email, password: values.password, password_confirmation: values.password_confirmation });
+    router.replace("/");
+  } catch (error) {
+    console.log(error);
+  }
 });
 </script>
 
