@@ -1,13 +1,23 @@
 <script setup lang="ts">
+import { onMounted } from "vue";
 import { useForm } from "vee-validate"
 import { object, string, ref } from "yup";
 import { useRouter } from "vue-router";
 import { axios } from "@/lib/axios";
+import { useAuthUserStore } from "@/stores/authUser";
 import NameArea from "@/components/molecules/NameArea.vue";
 import EmailArea from "@/components/molecules/EmailArea.vue";
 import PasswordArea from "@/components/molecules/PasswordArea.vue";
 import PasswordConfirmArea from "@/components/molecules/PasswordConfirmArea.vue";
 import SubmitButton from "@/components/atoms/SubmitButton.vue";
+
+const authUser = useAuthUserStore();
+
+onMounted(() => {
+  if (authUser.info) {
+    router.replace("/");
+  }
+});
 
 const router = useRouter();
 
@@ -31,7 +41,9 @@ const { errors, handleSubmit, isSubmitting } = useForm({
 const onSubmit = handleSubmit(async (values) => {
   try {
     await axios.post(`${import.meta.env.VITE_API_URL}/api/users/create`, { name: values.name, email: values.email, password: values.password, password_confirmation: values.password_confirmation });
+    const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/users/login`, { email: values.email, password: values.password });
     router.replace("/");
+    authUser.$patch({ info: res.data });
   } catch (error) {
     console.log(error);
   }
@@ -44,13 +56,13 @@ const onSubmit = handleSubmit(async (values) => {
   <form @submit="onSubmit">
     <dl>
       <NameArea />
-      <p>{{ errors.name }}</p>
+      <p class="text-red-500">{{ errors.name }}</p>
       <EmailArea />
-      <p>{{ errors.email }}</p>
+      <p class="text-red-500">{{ errors.email }}</p>
       <PasswordArea />
-      <p>{{ errors.password }}</p>
+      <p class="text-red-500">{{ errors.password }}</p>
       <PasswordConfirmArea />
-      <p>{{ errors.password_confirmation }}</p>
+      <p class="text-red-500">{{ errors.password_confirmation }}</p>
       <SubmitButton :disabled="isSubmitting">登録</SubmitButton>
     </dl>
   </form>
