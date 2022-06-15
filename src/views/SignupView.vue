@@ -41,7 +41,9 @@ const { errors, handleSubmit, isSubmitting } = useForm({
 const onSubmit = handleSubmit(async (values) => {
   try {
     await axios.post(`${import.meta.env.VITE_API_URL}/api/users/create`, { name: values.name, email: values.email, password: values.password, password_confirmation: values.password_confirmation });
+    const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/users/login`, { email: values.email, password: values.password });
     router.replace("/");
+    authUser.$patch({ info: res.data });
   } catch (error) {
     console.log(error);
   }
