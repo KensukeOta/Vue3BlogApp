@@ -1,59 +1,28 @@
-# frontend
+# Vue3BlogApp
+Vue.js3を使用した完全SPAのブログアプリです。
+- https://vue3-blog-app-kensuke.vercel.app/
 
-This template should help get you started developing with Vue 3 in Vite.
+## 使用した技術・ツール
+- 開発環境: __Docker__, __docker-compose__
+- バックエンド: __Ruby on Rails7.0.3__
+https://github.com/KensukeOta/API-for-Vue3BlogApp
+- フロントエンド: __Vue.js3.2__
+- UIコンポーネントライブラリ: __Tailwind CSS__
+- ルーティングライブラリ: __Vue Router4.0.15__
+- フォームライブラリ: __vee-validate4.5.11__, __yup0.32.11__
+- 状態管理ライプラリ: __Pinia2.0.14__
+- コンポーネント設計: __Atomic Design__
+- HTTPクライアント: __axios__
+- バージョン管理ツール: __Git__ / __GitHub__
+- タスク管理: __GitHub Issues__
+- その他ライブラリ: __pinia-plugin-persist1.0.0(Pinia永続化)__
+- その他言語: __TypeScript__, __HTML/CSS__
 
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
-
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
-
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
-
-```sh
-npm run build
-npm run test:e2e # or `npm run test:e2e:ci` for headless testing
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+## 機能
+- ログイン機能
+- ユーザー登録機能
+- 記事投稿機能
+- 記事一覧表示機能
+- 記事詳細表示機能
+- 記事更新機能
+- 記事削除機能
