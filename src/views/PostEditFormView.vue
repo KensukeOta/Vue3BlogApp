@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
+import type { Post } from "@/types/Post";
+import { onMounted, ref } from "vue";
 import { useField, useForm } from "vee-validate";
 import { object, string } from "yup";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { axios } from "@/lib/axios";
 import { useAuthUserStore } from "@/stores/authUser";
 import TitleArea from "../components/molecules/TitleArea.vue";
@@ -11,12 +12,15 @@ import SubmitButton from "../components/atoms/SubmitButton.vue";
 
 const authUser: any = useAuthUserStore();
 
+const post = ref<Post>();
+
+const route = useRoute();
+
 const router = useRouter();
 
-onMounted(() => {
-  if (!authUser.info) {
-    router.replace("/login");
-  }
+onMounted(async () => {
+  const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/posts/${route.params.id}`);
+  post.value = res.data;
 });
 
 const { value: user_id } = useField("user_id");
@@ -30,15 +34,16 @@ const schema = object({
 const { errors, handleSubmit, isSubmitting } = useForm({
   validationSchema: schema,
   initialValues: {
-    title: "",
-    body: "",
-    user_id: `${authUser.info.id}`,
+    title: `${post.value?.title}`,
+    body: `${post.value?.body}`,
+    user_id: `${post.value?.user_id}`
   }
 });
 
 const onSubmit = handleSubmit(async (values) => {
   try {
-    console.log(values);
+    await axios.patch(`${import.meta.env.VITE_API_URL}/api/posts/${route.params.id}/update`, { title: values.title, body: values.body, user_id: values.user_id });
+    router.replace("/");
   } catch (error) {
     console.log(error);
   }
