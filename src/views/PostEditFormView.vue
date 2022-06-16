@@ -21,6 +21,9 @@ const router = useRouter();
 onMounted(async () => {
   const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/posts/${route.params.id}`);
   post.value = res.data;
+  if (authUser.info.id !== post.value?.user_id) {
+    router.replace("/");
+  }
 });
 
 const { value: user_id } = useField("user_id");
